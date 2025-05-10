@@ -159,8 +159,8 @@ const creativeTitles = [
                 const dominantCount = getDominantSyllableCount(syllableCountsPerLine); let yellowWarnings = 0; let redAlerts = 0;
                 if (dominantCount > 0) { for (const count of syllableCountsPerLine) { const deviation = Math.abs(count - dominantCount); if (deviation === 2) yellowWarnings++; else if (deviation > 2) redAlerts++; } }
                 if (syllableCountsPerLine.length <= 1 && yellowWarnings === 0 && redAlerts === 0) { commentType = "green"; lightGreen.classList.add('active'); } 
-                else if (redAlerts >= 12 || (redAlerts === 6 && yellowWarnings >= 12) || yellowWarnings >= 24) { commentType = "red"; lightRed.classList.add('active'); } 
-                else if (redAlerts === 6 || yellowWarnings >= 6) { commentType = "yellow"; lightYellow.classList.add('active'); } 
+                else if (redAlerts >= 3 || (redAlerts === 2 && yellowWarnings >= 3) || yellowWarnings >= 6) { commentType = "red"; lightRed.classList.add('active'); } 
+                else if (redAlerts === 2 || yellowWarnings >= 2) { commentType = "yellow"; lightYellow.classList.add('active'); } 
                 else { commentType = "green"; lightGreen.classList.add('active'); }
                 trafficLightCommentDiv.textContent = getRandomComment(commentType);
             } else { trafficLightCommentDiv.textContent = getRandomComment('default'); }
