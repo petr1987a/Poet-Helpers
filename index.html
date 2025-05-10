@@ -1,4 +1,4 @@
-эх<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -126,7 +126,7 @@ const creativeTitles = [
     const lightYellow = document.getElementById('lightYellow');
     const lightGreen = document.getElementById('lightGreen');
     const trafficLightCommentDiv = document.getElementById('trafficLightComment');
-    const vowels = "аеёиоуыэюяАЕЁИОУЫЭЮЯáéíóúýÁÉÍÓÚÝàèìòùýÀÈÌÒÙÝâêîôûŷÂÊÎÔÛŶäëïöüÿÄËÏÖÜŸ";
+    const vowels = "аеёиоуыэюя";
     const initialResultText = resultDiv.innerHTML;
     
     // --- ⭐ Элементы для Лингвистического Комбайна ⭐ ---
@@ -141,19 +141,8 @@ const creativeTitles = [
         default: [ "Светофор ждёт ваших творений... ✨", "Поле чисто, как совесть киборга.", "Дремлю в ожидании рифм... 😴", "Готова к анализу! Запускайте! 🚀" ]
     };
 
-    function getRandomComment(type) { const typeComments = comments[type] || comments.default; return typeComments[Math.floor(Math.random() *то typeComments.length)]; }
-    function countSyllablesInLine(line) {
-    const normalizedLine = line.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    let syllableCount = 0;
-    for (let i = 0; i < normalizedLine.length; i++) {
-        const char = normalizedLine[i].toLowerCase();
-        if (vowels.toLowerCase().includes(char)) {
-            syllableCount++;
-        }
-    }
-    if (syllableCount === 0 && line.trim().length > 0) syllableCount = 1;
-    return syllableCount;
-}
+    function getRandomComment(type) { const typeComments = comments[type] || comments.default; return typeComments[Math.floor(Math.random() * typeComments.length)]; }
+    function countSyllablesInLine(line) { const lowerLine = line.toLowerCase(); let syllableCount = 0; for (let i = 0; i < lowerLine.length; i++) { if (vowels.includes(lowerLine[i])) syllableCount++; } if (syllableCount === 0 && line.trim().length > 0) syllableCount = 1; return syllableCount;}
     function getDominantSyllableCount(syllableCounts) { if (!syllableCounts || syllableCounts.length === 0) return 0; const countsMap = new Map(); let maxFreq = 0; let dominantCount = syllableCounts[0]; for (const count of syllableCounts) { countsMap.set(count, (countsMap.get(count) || 0) + 1); if (countsMap.get(count) > maxFreq) { maxFreq = countsMap.get(count); dominantCount = count; } } console.log("Доминантное кол-во слогов:", dominantCount); return dominantCount; }
     
     function resetTrafficLightsAndComment() { lightRed.classList.remove('active'); lightYellow.classList.remove('active'); lightGreen.classList.remove('active'); trafficLightCommentDiv.textContent = getRandomComment('default'); }
@@ -170,8 +159,8 @@ const creativeTitles = [
                 const dominantCount = getDominantSyllableCount(syllableCountsPerLine); let yellowWarnings = 0; let redAlerts = 0;
                 if (dominantCount > 0) { for (const count of syllableCountsPerLine) { const deviation = Math.abs(count - dominantCount); if (deviation === 2) yellowWarnings++; else if (deviation > 2) redAlerts++; } }
                 if (syllableCountsPerLine.length <= 1 && yellowWarnings === 0 && redAlerts === 0) { commentType = "green"; lightGreen.classList.add('active'); } 
-                else if (redAlerts >= 2 || (redAlerts === 1 && yellowWarnings >= 2) || yellowWarnings >= 4) { commentType = "red"; lightRed.classList.add('active'); } 
-                else if (redAlerts === 1 || yellowWarnings >= 1) { commentType = "yellow"; lightYellow.classList.add('active'); } 
+                else if (redAlerts >= 12 || (redAlerts === 6 && yellowWarnings >= 12) || yellowWarnings >= 24) { commentType = "red"; lightRed.classList.add('active'); } 
+                else if (redAlerts === 6 || yellowWarnings >= 6) { commentType = "yellow"; lightYellow.classList.add('active'); } 
                 else { commentType = "green"; lightGreen.classList.add('active'); }
                 trafficLightCommentDiv.textContent = getRandomComment(commentType);
             } else { trafficLightCommentDiv.textContent = getRandomComment('default'); }
