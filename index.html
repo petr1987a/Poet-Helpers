@@ -126,7 +126,7 @@ const creativeTitles = [
     const lightYellow = document.getElementById('lightYellow');
     const lightGreen = document.getElementById('lightGreen');
     const trafficLightCommentDiv = document.getElementById('trafficLightComment');
-    const vowels = "ёа́е́и́о́у́ы́э́ю́я́";
+    const vowels = "ёаеиоуыэюя";
     const initialResultText = resultDiv.innerHTML;
     
     // --- ⭐ Элементы для Лингвистического Комбайна ⭐ ---
@@ -141,8 +141,8 @@ const creativeTitles = [
         default: [ "Светофор ждёт ваших творений... ✨", "Поле чисто, как совесть киборга.", "Дремлю в ожидании рифм... 😴", "Готова к анализу! Запускайте! 🚀" ]
     };
 
-    function getRandomComment(type) { const typeComments = comments[type] || comments.default; return typeComments[Math.floor(Math.random() * typeComments.length)]; }
-    function countSyllablesInLine(line) { const lowerLine = line.toLowerCase(); let syllableCount = 0; for (let i = 0; i < lowerLine.length; i++) { if (vowels.includes(lowerLine[i])) syllableCount++; } if (syllableCount === 0 && line.trim().length > 0) syllableCount = 1; return syllableCount;}
+    function getRandomComment(type) { const typeComments = comments[type] || comments.default; return typeComments[Math.floor(Math.random() *то typeComments.length)]; }
+    function countSyllablesInLine(line) const lowerLine = line.normalize('NFD').toLowerCase(); let syllableCount = 0; for (let i = 0; i < lowerLine.length; i++) { if (vowels.includes(lowerLine[i])) syllableCount++; } if (syllableCount === 0 && line.trim().length > 0) syllableCount = 1; return syllableCount;}
     function getDominantSyllableCount(syllableCounts) { if (!syllableCounts || syllableCounts.length === 0) return 0; const countsMap = new Map(); let maxFreq = 0; let dominantCount = syllableCounts[0]; for (const count of syllableCounts) { countsMap.set(count, (countsMap.get(count) || 0) + 1); if (countsMap.get(count) > maxFreq) { maxFreq = countsMap.get(count); dominantCount = count; } } console.log("Доминантное кол-во слогов:", dominantCount); return dominantCount; }
     
     function resetTrafficLightsAndComment() { lightRed.classList.remove('active'); lightYellow.classList.remove('active'); lightGreen.classList.remove('active'); trafficLightCommentDiv.textContent = getRandomComment('default'); }
