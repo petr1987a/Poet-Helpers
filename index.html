@@ -433,10 +433,10 @@
                 if (syllableCountsPerLine.length <= 1 && yellowWarnings === 0 && redAlerts === 0) {
                     commentType = "green";
                     lightGreen.classList.add('active');
-                } else if (redAlerts >= 3 || (redAlerts === 2 && yellowWarnings >= 3) || yellowWarnings >= 6) {
+                } else if (redAlerts >= 2 || (redAlerts === 1 && yellowWarnings >= 2) || yellowWarnings >= 4) {
                     commentType = "red";
                     lightRed.classList.add('active');
-                } else if (redAlerts === 2 || yellowWarnings >= 2) {
+                } else if (redAlerts === 1 || yellowWarnings >= 2) {
                     commentType = "yellow";
                     lightYellow.classList.add('active');
                 } else {
