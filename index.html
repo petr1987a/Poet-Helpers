@@ -5,84 +5,279 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Злой Светофорчик</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; line-height: 1.6; margin: 0; padding: 0; }
-        .container { max-width: 800px; margin: 30px auto; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        h1 { color: #0056b3; text-align: center; margin-bottom: 10px; min-height: 1.2em; font-size: 1.6em; }
-        h2 { color: #0056b3; text-align: center; margin-top: 30px; margin-bottom: 15px; font-size: 1.3em; }
-        textarea { width: 95%; min-height: 150px; margin-bottom: 15px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; display: block; margin-left: auto; margin-right: auto; }
-        button { padding: 10px 15px; font-size: 0.9rem; color: #ffffff; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease; margin: 5px; }
-        .button-container { text-align: center; margin-top: 15px; }
-        #countButton, #clearButton { padding: 12px 35px; font-size: 1rem; }
-        #countButton { background-color: #007bff; }
-        #countButton:hover { background-color: #0056b3; }
-        #clearButton { background-color: #6c757d; }
-        #clearButton:hover { background-color: #5a6268; }
-        #saveButton { background-color: #28a745; }
-        #saveButton:hover { background-color: #218838; }
-        #result { margin-top: 20px; padding: 15px; background-color: #e9ecef; border-left: 5px solid #007bff; border-radius: 4px; font-family: 'Courier New', Courier, monospace; line-height: 1.8; }
-        footer { margin-top: 60px; font-style: italic; text-align: center; font-size: 0.6em; color: #777; }
-        .traffic-light-display { display: flex; justify-content: center; align-items: center; padding: 10px; height: 50px; }
-        .traffic-light-display .light { width: 30px; height: 30px; border-radius: 50%; background-color: #D3D3D3; margin: 0 5px; transition: background-color 0.3s ease, box-shadow 0.3s ease; border: 2px solid #A9A9A9; box-shadow: inset 0 -2px 4px rgba(0,0,0,0.2); }
-        .traffic-light-display .light.red-light.active { background-color: #FF0000; border-color: #B20000; box-shadow: 0 0 15px #FF0000, inset 0 -2px 4px rgba(0,0,0,0.4); }
-        .traffic-light-display .light.yellow-light.active { background-color: #FFFF00; border-color: #B2B200; box-shadow: 0 0 15px #FFFF00, inset 0 -2px 4px rgba(0,0,0,0.4); }
-        .traffic-light-display .light.green-light.active { background-color: #00FF00; border-color: #00B200; box-shadow: 0 0 15px #00FF00, inset 0 -2px 4px rgba(0,0,0,0.4); }
-        #trafficLightComment { text-align: center; margin-top: 0px; margin-bottom: 20px; font-style: italic; color: #555; min-height: 1.5em; line-height: 1.5em; font-size: 0.9em; }
-        /* ⭐ СТИЛИ ДЛЯ ЛИНГВИСТИЧЕСКОГО КОМБАЙНА ⭐ */
-        #dictionaryHelper {
-            margin-top: 40px;
+        /* --- ОСНОВНЫЕ СТИЛИ ДЛЯ ЗЛОГО БДСМ СВЕТОФОРЧИКА --- */
+        body {
+            font-family: 'Consolas', 'Lucida Console', 'Courier New', monospace; /* Более "машинный" шрифт */
+            background-color: #1a1a1a; /* Глубокий темный фон */
+            color: #e0e0e0; /* Светлый текст для контраста */
+            line-height: 1.7;
+            margin: 0;
+            padding: 20px; /* Небольшой отступ для всего тела */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Центрируем основной контейнер */
+        }
+
+        .container {
+            width: 100%; /* Растягиваем контейнер */
+            max-width: 900px; /* Чуть шире, для солидности */
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #2c2c2c; /* Темно-серый для контейнера */
+            border: 1px solid #555; /* Жесткая граница */
+            border-radius: 0px; /* Убираем скругления для брутальности */
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3), inset 0 0 10px rgba(0,0,0,0.5); /* Красноватое свечение + внутренние тени */
+        }
+
+        h1 {
+            color: #ff4136; /* Ярко-красный, агрессивный */
+            text-align: center;
+            margin-bottom: 15px;
+            min-height: 1.2em;
+            font-size: 2em; /* Крупнее */
+            text-shadow: 0 0 5px #ff4136, 0 0 10px #ff0000; /* Легкое неоновое свечение */
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            color: #ff851b; /* Оранжевый, как предупреждение */
+            text-align: center;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 1px dashed #777; /* Пунктирное подчеркивание */
+            padding-bottom: 5px;
+        }
+
+        textarea {
+            width: 95%;
+            min-height: 200px; /* Побольше места для страданий... то есть, стихов */
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 2px solid #ff4136; /* Красная, "опасная" рамка */
+            border-radius: 0px;
+            font-size: 1.1rem;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #111; /* Очень темный фон поля ввода */
+            color: #00ff00; /* Классический "хакерский" зеленый текст */
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.6);
+        }
+        textarea::placeholder {
+            color: #555; /* Тусклый плейсхолдер */
+        }
+
+
+        button {
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #e0e0e0;
+            background-color: #555; /* Серый, как металл */
+            border: 1px solid #888;
+            border-radius: 0px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+            margin: 8px;
+            text-transform: uppercase; /* КАПС ДЛЯ БРУТАЛЬНОСТИ */
+            box-shadow: 0 2px 3px rgba(0,0,0,0.4);
+        }
+        button:hover {
+            background-color: #ff4136; /* Красный при наведении */
+            color: #111;
+            box-shadow: 0 0 10px #ff4136, 0 3px 5px rgba(0,0,0,0.6);
+        }
+
+        .button-container { text-align: center; margin-top: 20px; }
+
+        /* Основные кнопки */
+        #countButton { background-color: #B22222; /* Firebrick - темно-красный */ border-color: #800000; }
+        #countButton:hover { background-color: #FF0000; color: #fff; border-color: #FF4500; }
+
+        #clearButton { background-color: #4a4a4a; border-color: #333; }
+        #clearButton:hover { background-color: #666; color: #fff; border-color: #777; }
+        
+        #saveButton { background-color: #006400; /* DarkGreen */ border-color: #004d00; }
+        #saveButton:hover { background-color: #008000; /* Green */ color: #fff; border-color: #228B22; }
+
+
+        #result {
+            margin-top: 25px;
             padding: 20px;
-            background-color: #e9f5ff;
-            border: 1px solid #b3d7ff;
-            border-radius: 8px;
+            background-color: #101010; /* Почти черный */
+            border: 2px dashed #ff851b; /* Оранжевая пунктирная рамка */
+            border-radius: 0px;
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.8;
+            color: #00ff00; /* Зеленый "консольный" текст */
+            min-height: 50px;
+            white-space: pre-wrap; /* Чтобы переносы строк из textarea сохранялись */
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.7);
+        }
+
+        footer {
+            margin-top: 70px;
+            font-style: normal; /* Уберем курсив, сделаем строже */
+            text-align: center;
+            font-size: 0.7em;
+            color: #777;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- СТИЛИ ДЛЯ СВЕТОФОРА --- */
+        .traffic-light-display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px; /* Отступ до комментария светофора */
+            background-color: #0a0a0a; /* Очень темный фон для самого светофора */
+            border: 1px solid #444;
+            border-radius: 5px; /* Небольшое скругление для корпуса светофора */
+            box-shadow: 0 0 10px rgba(100,100,100,0.2);
+            height: auto; /* Автоматическая высота */
+        }
+        .traffic-light-display .light {
+            width: 40px; /* Крупнее */
+            height: 40px;
+            border-radius: 50%;
+            background-color: #333; /* Темно-серый неактивный */
+            margin: 0 8px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            border: 3px solid #555; /* Толще рамка */
+            box-shadow: inset 0 -3px 6px rgba(0,0,0,0.5); /* Более глубокая внутренняя тень */
+        }
+        .traffic-light-display .light.red-light.active {
+            background-color: #ff0000;
+            border-color: #cc0000;
+            box-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000, inset 0 -3px 6px rgba(0,0,0,0.7); /* Мощное свечение */
+        }
+        .traffic-light-display .light.yellow-light.active {
+            background-color: #ffff00;
+            border-color: #cccc00;
+            box-shadow: 0 0 20px #ffff00, 0 0 30px #ffff00, inset 0 -3px 6px rgba(0,0,0,0.7);
+        }
+        .traffic-light-display .light.green-light.active {
+            background-color: #00ff00;
+            border-color: #00cc00;
+            box-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00, inset 0 -3px 6px rgba(0,0,0,0.7);
+        }
+        
+        #trafficLightComment {
+            text-align: center;
+            margin-top: 5px; 
+            margin-bottom: 25px;
+            font-style: normal; /* Убираем курсив */
+            font-weight: bold;
+            color: #ff851b; /* Оранжевый, как предупреждение */
+            min-height: 1.5em;
+            line-height: 1.5em;
+            font-size: 1em; /* Чуть крупнее */
+            text-shadow: 0 0 3px #ff851b;
+        }
+
+        /* --- ⭐ СТИЛИ ДЛЯ ЛИНГВИСТИЧЕСКОГО КОМБАЙНА ⭐ --- */
+        #dictionaryHelper {
+            margin-top: 50px;
+            padding: 25px;
+            background-color: #222; /* Темный фон */
+            border: 1px solid #ff4136; /* Красная рамка */
+            border-radius: 0px;
+            box-shadow: 0 0 10px rgba(255, 65, 54, 0.2);
         }
         #dictionaryHelper h2 {
+            color: #ff4136; /* Красный заголовок */
             margin-top: 0;
-            color: #0056b3;
+            border-bottom-color: #ff851b; /* Оранжевая линия */
+            text-shadow: 0 0 5px #ff4136;
         }
         #dictionaryHelper input[type="text"] {
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ced4da;
-            border-radius: 4px;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #777;
+            border-radius: 0px;
             font-size: 1rem;
-            width: 100%;
+            width: calc(100% - 26px); /* Учитываем padding */
             box-sizing: border-box;
+            background-color: #111;
+            color: #00ccff; /* Голубоватый текст для инпута */
         }
+        #dictionaryHelper input[type="text"]::placeholder {
+            color: #444;
+        }
+
         .search-buttons-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 10px;
         }
+        /* Кнопки поиска в комбайне тоже будут брутальными */
         .search-buttons-container button.search-btn {
-            background-color: #5bc0de;
+            background-color: #0074D9; /* Синий для акцента */
+            border-color: #0056b3;
+            color: #fff;
         }
         .search-buttons-container button.search-btn:hover {
-            background-color: #31b0d5;
+            background-color: #001f3f; /* Темно-синий Navy */
+            color: #00ccff;
+            box-shadow: 0 0 8px #0074D9;
         }
-        /* Стили для списка сохранённых стихов */
+
+        /* --- Стили для списка сохранённых стихов --- */
         #savedPoemsList {
-            margin-top: 15px;
+            margin-top: 20px;
             list-style-type: none;
             padding: 0;
         }
         #savedPoemsList li {
             display: flex;
             justify-content: space-between;
-            padding: 8px 12px;
-            margin-bottom: 5px;
-            background-color: #f8f9fa;
-            border-radius: 4px;
-            font-size: 0.9em;
+            align-items: center; /* Вертикальное выравнивание */
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            background-color: #333; /* Темный фон элемента списка */
+            border: 1px solid #555;
+            border-radius: 0px;
+            font-size: 0.95em;
+            color: #ccc;
+            transition: background-color 0.2s ease;
         }
-        #savedPoemsList li button {
-            font-size: 0.8em;
-            padding: 4px 10px;
+        #savedPoemsList li:hover {
+            background-color: #404040;
         }
+        #savedPoemsList li span {
+            flex-grow: 1;
+            margin-right: 10px;
+            word-break: break-all; /* Перенос длинных названий */
+        }
+        #savedPoemsList li button { /* Стилизуем кнопки в списке тоже */
+            font-size: 0.85em;
+            padding: 5px 12px;
+            margin-left: 5px; /* Небольшой отступ между кнопками */
+        }
+        /* Отдельные стили для кнопок в списке, если нужно */
+        #savedPoemsList li button:first-of-type { /* Кнопка "Загрузить" */
+            background-color: #28a745; /* Зеленая */
+            border-color: #1e7e34;
+        }
+        #savedPoemsList li button:first-of-type:hover {
+            background-color: #218838;
+        }
+        #savedPoemsList li button:last-of-type { /* Кнопка "Удалить" */
+            background-color: #dc3545; /* Красная */
+            border-color: #bd2130;
+        }
+        #savedPoemsList li button:last-of-type:hover {
+            background-color: #c82333;
+        }
+
     </style>
 </head>
 <body>
-<div class="container">
+    <!-- Твой HTML-контент остается здесь без изменений -->
+    <div class="container">
     <h1 id="mainPageTitle">Загрузка Названия...</h1>
     <div id="trafficLightContainer" class="traffic-light-display">
         <span class="light red-light" id="lightRed"></span>
@@ -116,7 +311,7 @@
 <script>
     // --- ⭐ МАССИВ СЛУЧАЙНЫХ ЗАГОЛОВКОВ ⭐ ---
     const creativeTitles = [
-        "Ритмограф Поэзии🖌️", "НейроСлогоМетр 🤖", "Укротитель Слогов (версия для мазохистов 😈)", "BDSM Светофорчик🦯"
+        "Ритмограф Поэзии🖌️", "НейроСлогоМетр 🤖", "Укротитель Слогов (версия для мазохистов 😈)", "BDSM Светофорчик🦯",
         "Поэтический Метроном 🎶", "Злой Светофорчик🚦😈", "Слого-Магия ✨", 
         "Камертон Сердитой Музы 😡🎵", "Силлабо-Квантовый Анализатор v0.1 ⚛️", "Слого-Ниндзя: Бесшумный Счёт! 🤺", "Слоговая Диагностика 🔊", "СЛОГоворот Событий в Стихе! 🌪️", "Мастерская Ритма 🛠️", "Поэтический Код-Чекин ✅", "Лаборатория Стиля 🧪", "Не Считай Ворон – Считай Слоги! 👀", "Доктор Слог: Приём по Записи! 🩺", "Архитектор Стиха: Измерение Ритма 🏛️", "Ваш Личный Слого-Сомелье 🍷", "Слоговой Сканер 'Око Поэта' 👁️", "Это НЕ просто Счётчик Слогов 😉"
     ];
@@ -125,8 +320,7 @@
         if (mainTitleElement) {
             mainTitleElement.innerHTML = creativeTitles[Math.floor(Math.random() * creativeTitles.length)];
         }
-    });
-
+    // Твой JavaScript остается здесь без изменений
     // --- Элементы основного счетчика ---
     const textArea = document.getElementById('inputText');
     const countButton = document.getElementById('countButton');
@@ -314,7 +508,7 @@
                 const searchType = event.target.dataset.searchType;
                 if (wordToFind) {
                     let searchQuery = "";
-                    let лилиComment = "";
+                    let лилиComment = ""; // Используем переменную с другим именем, чтобы избежать конфликта
                     switch (searchType) {
                         case "synonyms":
                             searchQuery = `синонимы к слову ${encodeURIComponent(wordToFind)}`;
@@ -359,6 +553,7 @@
 
     loadSavedPoems();
     resetTrafficLightsAndComment();
+    }); // Закрывающая скобка для DOMContentLoaded
 </script>
 </body>
 </html>
