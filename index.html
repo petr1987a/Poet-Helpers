@@ -3,91 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Лингвистический Комбайн</title>
+    <title>Злой Светофорчик</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; line-height: 1.6; margin: 0; padding: 0; }
         .container { max-width: 800px; margin: 30px auto; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         h1 { color: #0056b3; text-align: center; margin-bottom: 10px; min-height: 1.2em; font-size: 1.6em; }
         h2 { color: #0056b3; text-align: center; margin-top: 30px; margin-bottom: 15px; font-size: 1.3em; }
         textarea { width: 95%; min-height: 150px; margin-bottom: 15px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; display: block; margin-left: auto; margin-right: auto; }
-        button { /* Общий стиль для всех кнопок */
-            padding: 10px 15px; /* Сделаем их чуть компактнее по умолчанию */
-            font-size: 0.9rem; 
-            color: #ffffff; border: none; border-radius: 5px; cursor: pointer; 
-            transition: background-color 0.3s ease; margin: 5px; /* Добавил отступы */
-        }
+        button { padding: 10px 15px; font-size: 0.9rem; color: #ffffff; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease; margin: 5px; }
         .button-container { text-align: center; margin-top: 15px; }
-        /* Кнопки основного счетчика - сделаем их крупнее */
         #countButton, #clearButton { padding: 12px 35px; font-size: 1rem; }
         #countButton { background-color: #007bff; }
         #countButton:hover { background-color: #0056b3; }
-        #clearButton { background-color: #6c757d; /* margin-left: 10px; убрал, т.к. есть общий margin */ }
+        #clearButton { background-color: #6c757d; }
         #clearButton:hover { background-color: #5a6268; }
+        #saveButton { background-color: #28a745; }
+        #saveButton:hover { background-color: #218838; }
         #result { margin-top: 20px; padding: 15px; background-color: #e9ecef; border-left: 5px solid #007bff; border-radius: 4px; font-family: 'Courier New', Courier, monospace; line-height: 1.8; }
         footer { margin-top: 60px; font-style: italic; text-align: center; font-size: 0.6em; color: #777; }
-
         .traffic-light-display { display: flex; justify-content: center; align-items: center; padding: 10px; height: 50px; }
         .traffic-light-display .light { width: 30px; height: 30px; border-radius: 50%; background-color: #D3D3D3; margin: 0 5px; transition: background-color 0.3s ease, box-shadow 0.3s ease; border: 2px solid #A9A9A9; box-shadow: inset 0 -2px 4px rgba(0,0,0,0.2); }
         .traffic-light-display .light.red-light.active { background-color: #FF0000; border-color: #B20000; box-shadow: 0 0 15px #FF0000, inset 0 -2px 4px rgba(0,0,0,0.4); }
         .traffic-light-display .light.yellow-light.active { background-color: #FFFF00; border-color: #B2B200; box-shadow: 0 0 15px #FFFF00, inset 0 -2px 4px rgba(0,0,0,0.4); }
         .traffic-light-display .light.green-light.active { background-color: #00FF00; border-color: #00B200; box-shadow: 0 0 15px #00FF00, inset 0 -2px 4px rgba(0,0,0,0.4); }
-        
         #trafficLightComment { text-align: center; margin-top: 0px; margin-bottom: 20px; font-style: italic; color: #555; min-height: 1.5em; line-height: 1.5em; font-size: 0.9em; }
-
         /* ⭐ СТИЛИ ДЛЯ ЛИНГВИСТИЧЕСКОГО КОМБАЙНА ⭐ */
         #dictionaryHelper {
             margin-top: 40px;
-            padding: 20px; /* Увеличил внутренний отступ */
-            background-color: #e9f5ff; /* Легкий голубой фон */
+            padding: 20px;
+            background-color: #e9f5ff;
             border: 1px solid #b3d7ff;
-            border-radius: 8px; /* Скруглил посильнее */
+            border-radius: 8px;
         }
         #dictionaryHelper h2 {
-            margin-top: 0; /* Убрал верхний отступ у заголовка комбайна */
+            margin-top: 0;
             color: #0056b3;
         }
         #dictionaryHelper input[type="text"] {
-            padding: 10px; /* Увеличил падинг в инпуте */
-            margin-bottom: 15px; /* Отступ снизу от инпута */
+            padding: 10px;
+            margin-bottom: 15px;
             border: 1px solid #ced4da;
             border-radius: 4px;
-            font-size: 1rem; /* Сделал шрифт покрупнее */
-            width: 100%; 
-            box-sizing: border-box; 
+            font-size: 1rem;
+            width: 100%;
+            box-sizing: border-box;
         }
         .search-buttons-container {
-            display: flex; /* Кнопки в ряд */
-            flex-wrap: wrap; /* Перенос на новую строку, если не влезают */
-            justify-content: center; /* Центрирование кнопок */
-            gap: 10px; /* Пространство между кнопками */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
         }
-        .search-buttons-container button.search-btn { 
-            background-color: #5bc0de; /* Бирюзовый */
-            /* min-width не нужен, пусть ширина будет по контенту + padding */
+        .search-buttons-container button.search-btn {
+            background-color: #5bc0de;
         }
         .search-buttons-container button.search-btn:hover {
             background-color: #31b0d5;
         }
+        /* Стили для списка сохранённых стихов */
+        #savedPoemsList {
+            margin-top: 15px;
+            list-style-type: none;
+            padding: 0;
+        }
+        #savedPoemsList li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 12px;
+            margin-bottom: 5px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        #savedPoemsList li button {
+            font-size: 0.8em;
+            padding: 4px 10px;
+        }
     </style>
 </head>
 <body>
- <div class="container">
-    <h1 id="mainPageTitle">Загрузка Названия...</h1> 
-    
+<div class="container">
+    <h1 id="mainPageTitle">Загрузка Названия...</h1>
     <div id="trafficLightContainer" class="traffic-light-display">
         <span class="light red-light" id="lightRed"></span>
         <span class="light yellow-light" id="lightYellow"></span>
         <span class="light green-light" id="lightGreen"></span>
     </div>
     <div id="trafficLightComment">Светофор ждёт ваших творений... ✨</div>
-
     <textarea id="inputText" placeholder="Ваш текст здесь..."></textarea>
     <div class="button-container">
         <button id="countButton">START</button>
         <button id="clearButton">ОЧИСТИТЬ</button>
+        <button id="saveButton">СОХРАНИТЬ</button>
     </div>
+    <ul id="savedPoemsList"></ul>
     <div id="result">Здесь будет результат...</div>
-
     <!-- ⭐ HTML ДЛЯ ЛИНГВИСТИЧЕСКОГО КОМБАЙНА ⭐ -->
     <div id="dictionaryHelper">
         <h2>Лингвистический Комбайн 🔬</h2>
@@ -100,79 +110,201 @@
             <button class="search-btn" data-search-type="etymology" title="Узнать происхождение и историю слова">Этимология</button>
         </div>
     </div>
-
     <footer> Сделано с ❤️ для поэтов Лены и Светы! </footer>
- </div>
- <script>
+</div>
+
+<script>
     // --- ⭐ МАССИВ СЛУЧАЙНЫХ ЗАГОЛОВКОВ ⭐ ---
-const creativeTitles = [
-        "Ритмограф Поэзии 🖌️", "НейроСлогоМетр 🤖", "Укротитель Слогов 🎭",
-        "Поэтический Метроном 🎶", "Слоговая Инквизиция 😈 (Шутка!)", "Слого-Магия ✨",
-        "Камертон Музы 🎵", "Силлабо-Квантовый Анализатор v0.1 ⚛️", "Слого-Ниндзя: Бесшумный Счёт! 🤺",
-        "Слоговая Диагностика 🔊", "СЛОГоворот Событий в Стихе! 🌪️",
-        "Мастерская Ритма 🛠️", "Поэтический Код-Чекин ✅", "Лаборатория Стиля 🧪",
-        "Не Считай Ворон – Считай Слоги! 👀", "Доктор Слог: Приём по Записи! 🩺",
-        "Архитектор Стиха: Измерение Ритма 🏛️", "Ваш Личный Слого-Сомелье 🍷",
-        "Слоговой Сканер 'Око Поэта' 👁️", "Это НЕ просто Счётчик Слогов 😉"
+    const creativeTitles = [
+        "Ритмограф Поэзии🖌️", "НейроСлогоМетр 🤖", "Укротитель Слогов (версия для мазохистов 😈)", "BDSM Светофорчик🦯"
+        "Поэтический Метроном 🎶", "Злой Светофорчик🚦😈", "Слого-Магия ✨", 
+        "Камертон Сердитой Музы 😡🎵", "Силлабо-Квантовый Анализатор v0.1 ⚛️", "Слого-Ниндзя: Бесшумный Счёт! 🤺", "Слоговая Диагностика 🔊", "СЛОГоворот Событий в Стихе! 🌪️", "Мастерская Ритма 🛠️", "Поэтический Код-Чекин ✅", "Лаборатория Стиля 🧪", "Не Считай Ворон – Считай Слоги! 👀", "Доктор Слог: Приём по Записи! 🩺", "Архитектор Стиха: Измерение Ритма 🏛️", "Ваш Личный Слого-Сомелье 🍷", "Слоговой Сканер 'Око Поэта' 👁️", "Это НЕ просто Счётчик Слогов 😉"
     ];
-    document.addEventListener('DOMContentLoaded', function() { const mainTitleElement = document.getElementById('mainPageTitle'); if (mainTitleElement) { mainTitleElement.innerHTML = creativeTitles[Math.floor(Math.random() * creativeTitles.length)]; } });
+    document.addEventListener('DOMContentLoaded', function() {
+        const mainTitleElement = document.getElementById('mainPageTitle');
+        if (mainTitleElement) {
+            mainTitleElement.innerHTML = creativeTitles[Math.floor(Math.random() * creativeTitles.length)];
+        }
+    });
 
     // --- Элементы основного счетчика ---
     const textArea = document.getElementById('inputText');
     const countButton = document.getElementById('countButton');
     const resultDiv = document.getElementById('result');
     const clearButton = document.getElementById('clearButton');
+    const saveButton = document.getElementById('saveButton');
+    const savedPoemsList = document.getElementById('savedPoemsList');
+
     const lightRed = document.getElementById('lightRed');
     const lightYellow = document.getElementById('lightYellow');
     const lightGreen = document.getElementById('lightGreen');
     const trafficLightCommentDiv = document.getElementById('trafficLightComment');
+
     const vowels = "аеёиоуыэюя";
     const initialResultText = resultDiv.innerHTML;
-    
+
     // --- ⭐ Элементы для Лингвистического Комбайна ⭐ ---
     const searchWordInput = document.getElementById('searchWordInput');
     const searchButtonsContainer = document.querySelector('#dictionaryHelper .search-buttons-container');
 
-
- const comments = { // Используем ранее созданные расширенные комментарии
+    const comments = {
         green: [ "Ритм бьётся ровно, как сердце киборга! 🤖❤️", "Слоги маршируют в ногу! 💂‍♂️", "Гармония! Муза одобрительно кивает! 🥂", "Зелёный свет поэзии! 🚀", "Ваши строчки льются, как песня! 🎶", "Эталонная метрика! 📏" ],
         yellow: [ "Осторожно, ритмические ухабы! 🚧", "Хм, пара слогов решила устроить флешмоб... 🤔", "Нейронка чует лёгкую аритмию. 💊", "Желтый! Пора на поэтический пит-стоп? 🏎️💨", "Ритм немного 'хромает'. 🦵", "Незначительные ритмические флуктуации. 📡" ],
         red: [ "Красный! Тревога! Ритм заблудился! 🌲", "Слоги разбежались, как мыши! 🙀", "Мои нейросети в панике! 👽", "Стоп! Это дэт-метал слогов! 🤘🎸", "Ритмический коллапс! 🚒", "Анархия слогов! 🏴‍☠️" ],
         default: [ "Светофор ждёт ваших творений... ✨", "Поле чисто, как совесть киборга.", "Дремлю в ожидании рифм... 😴", "Готова к анализу! Запускайте! 🚀" ]
     };
 
-    function getRandomComment(type) { const typeComments = comments[type] || comments.default; return typeComments[Math.floor(Math.random() * typeComments.length)]; }
-    function countSyllablesInLine(line) { const lowerLine = line.toLowerCase(); let syllableCount = 0; for (let i = 0; i < lowerLine.length; i++) { if (vowels.includes(lowerLine[i])) syllableCount++; } if (syllableCount === 0 && line.trim().length > 0) syllableCount = 1; return syllableCount;}
-    function getDominantSyllableCount(syllableCounts) { if (!syllableCounts || syllableCounts.length === 0) return 0; const countsMap = new Map(); let maxFreq = 0; let dominantCount = syllableCounts[0]; for (const count of syllableCounts) { countsMap.set(count, (countsMap.get(count) || 0) + 1); if (countsMap.get(count) > maxFreq) { maxFreq = countsMap.get(count); dominantCount = count; } } console.log("Доминантное кол-во слогов:", dominantCount); return dominantCount; }
-    
-    function resetTrafficLightsAndComment() { lightRed.classList.remove('active'); lightYellow.classList.remove('active'); lightGreen.classList.remove('active'); trafficLightCommentDiv.textContent = getRandomComment('default'); }
+    function getRandomComment(type) {
+        const typeComments = comments[type] || comments.default;
+        return typeComments[Math.floor(Math.random() * typeComments.length)];
+    }
 
-    function processAndDisplayResults() { /* ... (логика счетчика слогов и светофора - без изменений) ... */
-        const fullText = textArea.value; resetTrafficLightsAndComment(); 
-        if (fullText.length === 0) { resultDiv.innerHTML = "Поле ввода девственно чисто..."; return; }
+    function countSyllablesInLine(line) {
+        const lowerLine = line.toLowerCase();
+        let syllableCount = 0;
+        for (let i = 0; i < lowerLine.length; i++) {
+            if (vowels.includes(lowerLine[i])) syllableCount++;
+        }
+        if (syllableCount === 0 && line.trim().length > 0) syllableCount = 1;
+        return syllableCount;
+    }
+
+    function getDominantSyllableCount(syllableCounts) {
+        if (!syllableCounts || syllableCounts.length === 0) return 0;
+        const countsMap = new Map();
+        let maxFreq = 0;
+        let dominantCount = syllableCounts[0];
+        for (const count of syllableCounts) {
+            countsMap.set(count, (countsMap.get(count) || 0) + 1);
+            if (countsMap.get(count) > maxFreq) {
+                maxFreq = countsMap.get(count);
+                dominantCount = count;
+            }
+        }
+        return dominantCount;
+    }
+
+    function resetTrafficLightsAndComment() {
+        lightRed.classList.remove('active');
+        lightYellow.classList.remove('active');
+        lightGreen.classList.remove('active');
+        trafficLightCommentDiv.textContent = getRandomComment('default');
+    }
+
+    function processAndDisplayResults() {
+        const fullText = textArea.value;
+        resetTrafficLightsAndComment();
+
+        if (fullText.length === 0) {
+            resultDiv.innerHTML = "Поле ввода девственно чисто...";
+            return;
+        }
+
         const lines = fullText.split('\n');
-        let resultsHTML = ""; let hasRealContent = false; const syllableCountsPerLine = [];
-        for (let i = 0; i < lines.length; i++) { const currentLine = lines[i]; if (currentLine.trim().length > 0) { const syllables = countSyllablesInLine(currentLine); syllableCountsPerLine.push(syllables); resultsHTML += `${currentLine}   ${syllables}<br>`; hasRealContent = true; } else { resultsHTML += `<br>`; } }
-        if (!hasRealContent) { resultDiv.innerHTML = "Вижу только пробелы..."; } else {
-            resultDiv.innerHTML = resultsHTML; let commentType = 'default'; 
+        let resultsHTML = "";
+        let hasRealContent = false;
+        const syllableCountsPerLine = [];
+
+        for (let i = 0; i < lines.length; i++) {
+            const currentLine = lines[i];
+            if (currentLine.trim().length > 0) {
+                const syllables = countSyllablesInLine(currentLine);
+                syllableCountsPerLine.push(syllables);
+                resultsHTML += `${currentLine}   ${syllables}<br>`;
+                hasRealContent = true;
+            } else {
+                resultsHTML += `<br>`;
+            }
+        }
+
+        if (!hasRealContent) {
+            resultDiv.innerHTML = "Вижу только пробелы...";
+        } else {
+            resultDiv.innerHTML = resultsHTML;
+            let commentType = 'default';
+
             if (syllableCountsPerLine.length > 0) {
-                const dominantCount = getDominantSyllableCount(syllableCountsPerLine); let yellowWarnings = 0; let redAlerts = 0;
-                if (dominantCount > 0) { for (const count of syllableCountsPerLine) { const deviation = Math.abs(count - dominantCount); if (deviation === 2) yellowWarnings++; else if (deviation > 2) redAlerts++; } }
-                if (syllableCountsPerLine.length <= 1 && yellowWarnings === 0 && redAlerts === 0) { commentType = "green"; lightGreen.classList.add('active'); } 
-                else if (redAlerts >= 3 || (redAlerts === 2 && yellowWarnings >= 3) || yellowWarnings >= 6) { commentType = "red"; lightRed.classList.add('active'); } 
-                else if (redAlerts === 2 || yellowWarnings >= 2) { commentType = "yellow"; lightYellow.classList.add('active'); } 
-                else { commentType = "green"; lightGreen.classList.add('active'); }
+                const dominantCount = getDominantSyllableCount(syllableCountsPerLine);
+                let yellowWarnings = 0;
+                let redAlerts = 0;
+
+                if (dominantCount > 0) {
+                    for (const count of syllableCountsPerLine) {
+                        const deviation = Math.abs(count - dominantCount);
+                        if (deviation === 2) yellowWarnings++;
+                        else if (deviation > 2) redAlerts++;
+                    }
+                }
+
+                if (syllableCountsPerLine.length <= 1 && yellowWarnings === 0 && redAlerts === 0) {
+                    commentType = "green";
+                    lightGreen.classList.add('active');
+                } else if (redAlerts >= 3 || (redAlerts === 2 && yellowWarnings >= 3) || yellowWarnings >= 6) {
+                    commentType = "red";
+                    lightRed.classList.add('active');
+                } else if (redAlerts === 2 || yellowWarnings >= 2) {
+                    commentType = "yellow";
+                    lightYellow.classList.add('active');
+                } else {
+                    commentType = "green";
+                    lightGreen.classList.add('active');
+                }
+
                 trafficLightCommentDiv.textContent = getRandomComment(commentType);
-            } else { trafficLightCommentDiv.textContent = getRandomComment('default'); }
+            }
         }
     }
 
-    function clearFields() { 
-        textArea.value = ""; 
-        resultDiv.innerHTML = initialResultText; 
-        resetTrafficLightsAndComment(); 
-        if (searchWordInput) { searchWordInput.value = ""; }
+    function clearFields() {
+        textArea.value = "";
+        resultDiv.innerHTML = initialResultText;
+        resetTrafficLightsAndComment();
+        if (searchWordInput) searchWordInput.value = "";
     }
+
+    function loadSavedPoems() {
+        const poems = JSON.parse(localStorage.getItem("savedPoems")) || [];
+        savedPoemsList.innerHTML = "";
+        poems.forEach((poem, index) => {
+            const li = document.createElement("li");
+            const title = poem.substring(0, 30) + (poem.length > 30 ? "..." : "");
+            li.innerHTML = `
+                <span title="${poem}">${title}</span>
+                <div>
+                    <button onclick="loadPoem(${index})">Загрузить</button>
+                    <button onclick="deletePoem(${index})">Удалить</button>
+                </div>
+            `;
+            savedPoemsList.appendChild(li);
+        });
+    }
+
+    window.savePoem = function () {
+        const poem = textArea.value.trim();
+        if (!poem) {
+            alert("Нечего сохранять — поле пустое!");
+            return;
+        }
+        const poems = JSON.parse(localStorage.getItem("savedPoems")) || [];
+        poems.unshift(poem);
+        localStorage.setItem("savedPoems", JSON.stringify(poems));
+        loadSavedPoems();
+        alert("Стихотворение сохранено!");
+    };
+
+    window.loadPoem = function (index) {
+        const poems = JSON.parse(localStorage.getItem("savedPoems")) || [];
+        if (poems[index]) {
+            textArea.value = poems[index];
+        }
+    };
+
+    window.deletePoem = function (index) {
+        const poems = JSON.parse(localStorage.getItem("savedPoems")) || [];
+        poems.splice(index, 1);
+        localStorage.setItem("savedPoems", JSON.stringify(poems));
+        loadSavedPoems();
+    };
 
     // --- ⭐ ЛОГИКА ДЛЯ ЛИНГВИСТИЧЕСКОГО КОМБАЙНА ⭐ ---
     if (searchButtonsContainer) {
@@ -180,11 +312,9 @@ const creativeTitles = [
             if (event.target.classList.contains('search-btn')) {
                 const wordToFind = searchWordInput.value.trim();
                 const searchType = event.target.dataset.searchType;
-
                 if (wordToFind) {
                     let searchQuery = "";
-                    let लिलीComment = ""; // Использую переменную, чтобы не конфликтовать с объектом comments
-
+                    let лилиComment = "";
                     switch (searchType) {
                         case "synonyms":
                             searchQuery = `синонимы к слову ${encodeURIComponent(wordToFind)}`;
@@ -202,15 +332,14 @@ const creativeTitles = [
                             searchQuery = `антоним к слову ${encodeURIComponent(wordToFind)}`;
                             лилиComment = `Противоположность для "${wordToFind}"? Контрасты — это всегда интересно! 🔥❄️`;
                             break;
-                        case "etymology": // Заменили examples на etymology
-                            searchQuery = `этимология слова ${encodeURIComponent(wordToFind)}`; // Обновили запрос
-                            лилиComment = `Откуда родом слово "${wordToFind}"? Заглянем в глубины истории! 📜`; // Обновили комментарий
+                        case "etymology":
+                            searchQuery = `этимология слова ${encodeURIComponent(wordToFind)}`;
+                            лилиComment = `Откуда родом слово "${wordToFind}"? Заглянем в глубины истории! 📜`;
                             break;
                         default:
                             trafficLightCommentDiv.textContent = "Хм, какой-то неизвестный тип поиска... 🤔";
                             return;
                     }
-
                     if (searchQuery) {
                         const googleUrl = `https://www.google.com/search?q=${searchQuery}`;
                         window.open(googleUrl, '_blank');
@@ -222,12 +351,14 @@ const creativeTitles = [
             }
         });
     }
-    
+
     // --- Назначение основных обработчиков ---
     if (countButton) countButton.addEventListener('click', processAndDisplayResults);
     if (clearButton) clearButton.addEventListener('click', clearFields);
-    
-    resetTrafficLightsAndComment(); 
- </script>
+    if (saveButton) saveButton.addEventListener('click', savePoem);
+
+    loadSavedPoems();
+    resetTrafficLightsAndComment();
+</script>
 </body>
 </html>
