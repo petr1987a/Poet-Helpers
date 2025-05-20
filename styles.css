@@ -1,0 +1,437 @@
+/* --- Основные стили --- */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 25px;
+    background-color: var(--container-bg);
+    border-radius: var(--container-radius);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+textarea {
+    width: 95%;
+    min-height: 150px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 2px solid var(--textarea-border);
+    background-color: var(--textarea-bg);
+    color: var(--textarea-color);
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+button {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    color: var(--button-text-color);
+    background-color: var(--button-bg);
+    border: 1px solid var(--button-border);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+	
+}
+
+button:hover {
+    background-color: var(--button-hover-bg);
+    color: var(--button-hover-text-color);
+    border-color: var(--button-hover-border);
+}
+
+/* Исправление для контейнера кнопок */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px; 
+    flex-wrap: wrap; /* Для мобильных устройств */
+    width: 100%;
+    margin: 15px 0;
+}
+
+/* Для иконок в кнопках */
+button#clearButton::after,
+button#saveButton::after {
+    content: " ";
+    white-space: pre;
+}
+
+
+/* Центрирование комментариев светофора */
+#trafficLightComment {
+    text-align: center;
+    margin: 12px auto;
+    padding: 0 15px;
+    max-width: 80%;
+    font-style: italic;
+    color: var(--footer-color);
+    transition: color 0.3s;
+}
+
+/* Для мобильных устройств */
+@media (max-width: 480px) {
+    #trafficLightComment {
+        max-width: 95%;
+        font-size: 0.9em;
+    }
+}
+
+
+
+
+
+
+
+.light {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 0 5px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.traffic-light-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 10px;
+    background-color: var(--container-bg);
+    border: 1px solid var(--textarea-border);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(100, 100, 100, 0.2);
+	width: fit-content;
+	margin-left: auto;  /* Центрирование */
+    margin-right: auto;
+	cursor: pointer;
+}
+
+.traffic-light-display .light {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin: 0 12px;
+    position: relative;
+    background: radial-gradient(circle at 30% 30%, 
+        rgba(255,255,255,0.4) 0%, 
+        rgba(255,255,255,0.1) 50%,
+        transparent 100%);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    box-shadow: 
+        0 0 15px rgba(0,0,0,0.2),
+        inset 0 -5px 15px rgba(0,0,0,0.3);
+}
+
+/* Эффект стеклянной поверхности */
+.light::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    background: linear-gradient(145deg, 
+        rgba(255,255,255,0.3) 0%, 
+        rgba(255,255,255,0.1) 50%,
+        rgba(0,0,0,0.1) 100%);
+}
+
+/* Анимация свечения */
+@keyframes glow {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.2); }
+    100% { filter: brightness(1); }
+}
+
+/* Цвета для активных состояний с градиентами */
+.red-light.active {
+    background: radial-gradient(circle, 
+        #ff4444 0%, 
+        #cc0000 70%, 
+        #8b0000 100%);
+    box-shadow: 0 0 30px #ff000066;
+    animation: glow 1.5s infinite;
+}
+
+.yellow-light.active {
+    background: radial-gradient(circle, 
+        #ffff00 0%, 
+        #ffd700 70%, 
+        #daa520 100%);
+    box-shadow: 0 0 30px #ffff0066;
+    animation: glow 1.8s infinite;
+}
+
+.green-light.active {
+    background: radial-gradient(circle, 
+        #00ff00 0%, 
+        #00cc00 70%, 
+        #008000 100%);
+    box-shadow: 0 0 30px #00ff0066;
+    animation: glow 2s infinite;
+}
+
+/* Эффект при наведении */
+.light:hover:not(.active) {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+/* Неактивные состояния с эффектом "выключено" */
+.dark-theme .light:not(.active) {
+    background: radial-gradient(circle, 
+        #3a3a3a 0%, 
+        #2a2a2a 70%, 
+        #1a1a1a 100%);
+}
+
+.light-theme .light:not(.active) {
+    background: radial-gradient(circle, 
+        #e0e0e0 0%, 
+        #c0c0c0 70%, 
+        #a0a0a0 100%);
+}
+/* Анимация включения */
+@keyframes power-on {
+    0% { transform: scale(0); opacity: 0; }
+    80% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.light.active {
+    animation: power-on 0.3s ease-out;
+}
+
+/* Эффект частиц при активации */
+.light.active::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, 
+        rgba(255,255,255,0.4) 0%, 
+        transparent 70%);
+    animation: sparkle 0.8s linear;
+}
+
+@keyframes sparkle {
+    from { transform: scale(0); opacity: 1; }
+    to { transform: scale(2); opacity: 0; }
+}
+
+
+
+
+
+
+footer {
+    margin-top: 70px;
+    font-style: italic;
+    text-align: center;
+    font-size: 0.7em;
+    color: var(--footer-color);
+    transition: color 0.3s;
+}
+
+
+
+
+/* Тёмная тема */
+.dark-theme {
+    --container-bg: #2c2c2c;
+    --container-radius: 0px;
+    --textarea-border: #555;
+    --textarea-bg: #111;
+    --textarea-color: #00ff00;
+    --button-text-color: #e0e0e0;
+    --button-bg: #dc3545;
+    --button-border: #a71d2a;
+    --button-hover-bg: #bb2d3b;
+    --button-hover-text-color: #111;
+    --button-hover-border: #8a1a24;
+    --footer-color: #777;
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+.dark-theme .red-light { background-color: #ff0000; }
+.dark-theme .yellow-light { background-color: #ffff00; }
+.dark-theme .green-light { background-color: #00ff00; }
+
+
+
+/* Светлая тема */
+.light-theme {
+    --container-bg: #ffffff;
+    --container-radius: 8px;
+    --textarea-border: #ccc;
+    --textarea-bg: #f9f9f9;
+    --textarea-color: #333;
+    --button-text-color: #ffffff;
+    --button-bg: #28a745; 
+    --button-border: #1e7e34;
+    --button-hover-bg: #218838;
+    --button-hover-border: #145523;
+    --button-hover-text-color: #ffffff;
+    --footer-color: #555;
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+.light-theme .red-light { background-color: #FF6347; }
+.light-theme .yellow-light { background-color: #FFD700; }
+.light-theme .green-light { background-color: #32CD32; }
+
+
+
+/* --- Адаптивность --- */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    textarea {
+        min-height: 120px;
+        font-size: 0.9rem;
+    }
+
+    button {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+
+    footer {
+        font-size: 0.6em;
+    }
+}
+
+@media (max-width: 480px) {
+    textarea {
+        min-height: 100px;
+    }
+
+    button {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+    }
+
+    .light {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+
+
+/* ================ styles.css ================ */
+/* Добавляем анимацию для плейсхолдеров */
+#inputText::placeholder,
+#searchWordInput::placeholder {
+    transition: opacity 0.4s ease-in-out;
+    color: var(--textarea-color);
+}
+
+.dark-theme #inputText::placeholder,
+.dark-theme #searchWordInput::placeholder {
+    color: #666;
+}
+
+.light-theme #inputText::placeholder,
+.light-theme #searchWordInput::placeholder {
+    color: #999;
+}
+
+
+
+/* Центрирование заголовка */
+#mainPageTitle {
+    text-align: center;
+    width: 100%;
+    margin: 20px 0;
+    padding: 0 15px;
+}
+
+
+
+/* Тёмная тема — красная рамка */
+.dark-theme {
+    --textarea-border: #ff5555; /* Красный цвет */
+}
+
+/* Светлая тема — зелёная рамка */
+.light-theme {
+    --textarea-border: #00cc66; /* Зелёный цвет */
+}
+
+
+/* Стили для элементов списка */
+#savedPoemsList li {
+    display: flex;
+    align-items: center; /* Вертикальное выравнивание */
+    justify-content: space-between; /* Распределение пространства */
+    gap: 10px; /* Расстояние между элементами */
+    padding: 8px 12px;
+    margin: 6px 0;
+    background-color: var(--container-bg);
+    border: 1px solid var(--textarea-border);
+    border-radius: 5px;
+}
+
+/* Стиль для текста стихотворения */
+#savedPoemsList li span {
+    flex: 1; /* Занимает всё доступное пространство */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Стили для кнопок */
+#savedPoemsList li button {
+    padding: 6px 12px;
+    flex-shrink: 0; /* Запрет сжатия кнопок */
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Для мобильных устройств */
+@media (max-width: 480px) {
+    #savedPoemsList li {
+        flex-wrap: wrap; /* Перенос на новую строку */
+    }
+    
+    #savedPoemsList li button {
+        width: 100%; /* Полная ширина на мобилках */
+        justify-content: center;
+    }
+}
+
+
+/* Стили для цифр слогов */
+.syllable-count {
+    color: var(--accent-color);
+    font-weight: 900;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Для темной темы */
+.dark-theme .syllable-count {
+    --accent-color: #ff4444; /* Ярко-красный */
+}
+
+/* Для светлой темы */
+.light-theme .syllable-count {
+    --accent-color: #00ff00; /* Зелёный */
+}
