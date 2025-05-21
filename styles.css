@@ -35,7 +35,7 @@ textarea {
 
 button {
     padding: 10px 15px;
-    font-size: 2.25rem;
+    font-size: 1.5rem;
     color: var(--button-text-color);
     background-color: var(--button-bg);
     border: 1px solid var(--button-border);
@@ -309,7 +309,7 @@ footer {
 
     button {
         padding: 8px 12px;
-        font-size: 1.1rem;
+        font-size: 1.0rem;
     }
 
     footer {
@@ -324,7 +324,7 @@ footer {
 
     button {
         padding: 6px 10px;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
     }
 
     .light {
