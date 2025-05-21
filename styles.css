@@ -305,12 +305,11 @@ footer {
 
     textarea {
         min-height: 120px;
-        font-size: 0.9rem;
     }
 
     button {
         padding: 8px 12px;
-        font-size: 0.8rem;
+        font-size: 1.1rem;
     }
 
     footer {
@@ -325,7 +324,7 @@ footer {
 
     button {
         padding: 6px 10px;
-        font-size: 0.75rem;
+        font-size: 0.9rem;
     }
 
     .light {
